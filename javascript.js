@@ -6,6 +6,8 @@ const numButtons = document.querySelectorAll('.btnNum');
 const opButtons = document.querySelectorAll('.btnOp');
 const equals = document.getElementById('equals');
 const clearBtn = document.getElementById('clearBtn');
+const deleteBtn = document.getElementById('deleteBtn');
+let numberTally = 0;
 
 let displayValue = '';
 let firstValue;
@@ -13,8 +15,11 @@ let secondValue;
 let operator = '';
 
 function add(a, b) {
-    return (a + b);
+    let result = (a + b);
+    //if (result.toString().length <= 13) {
+    return result;
 }
+
 function subtract(a, b) {
     return (a - b);
 }
@@ -43,6 +48,13 @@ function operate(a, operator, b) {
 //for each button in our nodelist, add event listener
 numButtons.forEach(button => {
     button.addEventListener('click', function displayClick () {
+        ++numberTally;
+        if (numberTally == 13) {
+            numButtons.forEach(button => button.disabled = true);
+        }
+        if (button.value == ".") {
+            button.disabled = true;
+        }
         display.textContent = '';
         displayValue = displayValue + button.value;
         //displayValue is a string
@@ -52,7 +64,8 @@ numButtons.forEach(button => {
 
 opButtons.forEach(button => {
     button.addEventListener('click', function operateClick () {
-    
+        numberTally = 0;
+        numButtons.forEach(button => button.disabled = false);
         if (typeof firstValue == "number") {
             secondValue = Number(displayValue);
             firstValue = operate(firstValue, operator, secondValue);
@@ -70,14 +83,21 @@ opButtons.forEach(button => {
 });
 
 equals.addEventListener('click', function equalClick () {
-    secondValue = Number(displayValue);
-    displayValue = operate(firstValue, operator, secondValue);
-    firstValue = '';
-    display.textContent = '';
-    display.textContent = displayValue;
+    numberTally = 0;
+    numButtons.forEach(button => button.disabled = false);
+    if (typeof firstValue == "number") {
+        secondValue = Number(displayValue);
+        displayValue = operate(firstValue, operator, secondValue);
+        firstValue = '';
+        display.textContent = '';
+        display.textContent = displayValue;
+    }
 });
 
+//Wipes out any existing data
 clearBtn.addEventListener('click', function clearClick () {
+    numberTally = 0;
+    numButtons.forEach(button => button.disabled = false);
     firstValue = '';
     secondValue = '';
     displayValue = '';
@@ -85,3 +105,7 @@ clearBtn.addEventListener('click', function clearClick () {
     display.textContent = '';
 });
 
+deleteBtn.addEventListener('click', function backSpace () {
+    displayValue = displayValue.slice(0, displayValue.length - 1);
+    display.textContent = displayValue;
+});
