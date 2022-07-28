@@ -1,12 +1,11 @@
 
 const display = document.getElementById('display');
-
 //return nodelist containing references to all number buttons
 const numButtons = document.querySelectorAll('.btnNum');
 //return nodelist containing references to all operation buttons
 const opButtons = document.querySelectorAll('.btnOp');
-
 const equals = document.getElementById('equals');
+const clearBtn = document.getElementById('clearBtn');
 
 let displayValue = '';
 let firstValue;
@@ -76,5 +75,13 @@ equals.addEventListener('click', function equalClick () {
     firstValue = '';
     display.textContent = '';
     display.textContent = displayValue;
+});
+
+clearBtn.addEventListener('click', function clearClick () {
+    firstValue = '';
+    secondValue = '';
+    displayValue = '';
+    operator = '';
+    display.textContent = '';
 });
 
