@@ -71,6 +71,7 @@ function operate(a, operator, b) {
 //for each button in our nodelist, add event listener
 numButtons.forEach(button => {
     button.addEventListener('click', function displayClick () {
+        //Only allow user to input 13 characters at a time
         ++numberTally;
         if (numberTally == 13) {
             numButtons.forEach(button => button.disabled = true);
@@ -85,13 +86,19 @@ numButtons.forEach(button => {
     });
 });
 
+//User will select an operator and have to enter a new number
+//We save this operator for use in the calculation
+//Entering another operator will evaluate the expression
+//This second operator will then become the operator in the next expression..
 opButtons.forEach(button => {
     button.addEventListener('click', function operateClick () {
         numberTally = 0;
         numButtons.forEach(button => button.disabled = false);
+        //Check to see if user already provided first number
         if (typeof firstValue == "number") {
             secondValue = Number(displayValue);
             firstValue = operate(firstValue, operator, secondValue);
+            //Assign second operator chosen for next use
             operator = button.value;
             displayValue = '';
             display.textContent = '';
