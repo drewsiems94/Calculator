@@ -1,38 +1,61 @@
 
-const display = document.getElementById('display');
-//return nodelist containing references to all number buttons
-const numButtons = document.querySelectorAll('.btnNum');
-//return nodelist containing references to all operation buttons
-const opButtons = document.querySelectorAll('.btnOp');
-const equals = document.getElementById('equals');
-const clearBtn = document.getElementById('clearBtn');
-const deleteBtn = document.getElementById('deleteBtn');
-let numberTally = 0;
-
 let displayValue = '';
 let firstValue;
 let secondValue;
 let operator = '';
+let numberTally = 0;
+
+const display = document.getElementById('display');
+const numButtons = document.querySelectorAll('.btnNum');
+const opButtons = document.querySelectorAll('.btnOp');
+const equals = document.getElementById('equals');
+const clearBtn = document.getElementById('clearBtn');
+const deleteBtn = document.getElementById('deleteBtn');
+
+function expo(x, f) {
+    return Number.parseFloat(x).toExponential(f);
+  }
 
 function add(a, b) {
     let result = (a + b);
-    //if (result.toString().length <= 13) {
-    return result;
+    if (result >= 9999999999999) {
+        return expo(result, 2);
+    } else {
+        return Math.round(result * 1000) / 1000;
+    }
 }
 
 function subtract(a, b) {
-    return (a - b);
+    let result = (a - b);
+    if (result >= 9999999999999) {
+        return expo(result, 2);
+    } else {
+        return Math.round(result * 1000) / 1000;
+    }
 }
+
 function multiply(a, b) {
-    return (a * b);
+    let result = (a * b);
+    if (result >= 9999999999999) {
+        return expo(result, 2);
+    } else {
+        return Math.round(result * 1000) / 1000;
+    }
 }
+
 function divide(a, b) {
     if (b == 0) {
         return "Seriously?";
     } else {
-        return (a / b);
+        let result = (a / b);
+        if (result >= 9999999999999) {
+            return expo(result, 2);
+        } else {
+            return Math.round(result * 1000) / 1000;
+        }
     }
 }
+
 function operate(a, operator, b) {
     if (operator == "+") {
         return add(a, b);
