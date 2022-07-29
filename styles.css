@@ -1,6 +1,7 @@
 body {
     display: flex;
     justify-content: center;
+    background-color: lightcyan;
 }
 
 #calculator {
@@ -43,13 +44,19 @@ body {
 .btnNum,
 #equals {
     background-color: #D7BDE2;
+    font-weight: bold;
+    font-size: 20px;
 }
 
 .btnOp {
     background-color: lightsalmon;
+    font-weight: bold;
+    font-size: 20px;
 }
 
 #clearBtn,
 #deleteBtn {
     background-color: lightgrey;
+    font-weight: bold;
+    font-size: 18px;
 }
